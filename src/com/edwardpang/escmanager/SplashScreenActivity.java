@@ -33,7 +33,6 @@ public class SplashScreenActivity extends Activity {
 		else {
 			Toast.makeText(this, "Bluetooth is enabled", Toast.LENGTH_SHORT).show();
 	        Log.d(TAG, "Bluetooth Adaptor is enabled");
-	        //changeActivity ( );
 		}
 		
         /****** Create Thread that will sleep for 5 seconds *************/        

@@ -3,13 +3,17 @@
 
     <string name="app_name">ESC Manager</string>
     <string name="splash_screen_app_name">ESC\nManager</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">ESC Manager</string>
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
     <string name="title_section4">Section 4</string>
     <string name="action_settings">Settings</string>
-    <string name="dialog_title_pick_bluetooth_device">Pick a bluetooth device</string>
+    <string name="title_activity_select_bluetooth_device_dialog">Select a ESC</string>
+    <string name="dialog_text_paired_device_list">Paired device list</string>
+    <string name="dialog_text_unpaired_device_list">Unpaired device list</string>
     <string name="dialog_button_scan_device">Scan bluetooth device</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings_select_device">Select ESC</string>
 
 </resources>

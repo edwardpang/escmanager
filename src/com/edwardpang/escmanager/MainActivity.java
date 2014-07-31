@@ -4,12 +4,8 @@ import java.util.Locale;
 import java.util.Set;
 
 import android.app.Activity;
-import android.app.ActionBar;
-import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.app.ActionBar.Tab;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
@@ -17,19 +13,18 @@ import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
 	private static final String	TAG = "MainActivity";
 	private static final int	PRIVATE_CONST_REQUEST_ENABLE_BT = 0x0BEEF001;
+	private static final int	PRIVATE_CONST_PICK_BLUETOOTH_DEVICE = 0x0BEEF002;
 	
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -73,10 +68,8 @@ public class MainActivity extends Activity {
         	startActivityForResult(intentBtEnable, PRIVATE_CONST_REQUEST_ENABLE_BT);
 		}
 		else {
-			mBtAdapterBondedDevices = mBtAdapter.getBondedDevices();
-			
-			DialogFragment newFragment = new PickBluetoothDeviceDialogFragment();
-		    newFragment.show(getFragmentManager(), "PickBluetoothDevice");
+			Intent dialogIntent = new Intent (this, SelectBluetoothDeviceDialogActivity.class);
+        	startActivityForResult (dialogIntent, PRIVATE_CONST_PICK_BLUETOOTH_DEVICE);
 		}
         
 	}
@@ -95,6 +88,11 @@ public class MainActivity extends Activity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
+			return true;
+		}
+		else if (id == R.id.action_settings_select_device) {
+			Intent dialogIntent = new Intent (this, SelectBluetoothDeviceDialogActivity.class);
+        	startActivityForResult (dialogIntent, PRIVATE_CONST_PICK_BLUETOOTH_DEVICE);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

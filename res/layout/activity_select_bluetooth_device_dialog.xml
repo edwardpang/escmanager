@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <TextView
+        android:id="@+id/tvPariedDeviceList"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" 
+        android:text="@string/dialog_text_paired_device_list"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ListView
+        android:id="@+id/lvPairedDevicesList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible" >
+    </ListView>
+    
+    <TextView
+        android:id="@+id/tvUnpariedDeviceList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_text_unpaired_device_list"
+        android:textAppearance="?android:attr/textAppearanceLarge" 
+        android:visibility="visible" />
+
+    <ListView
+        android:id="@+id/lvUnpairedDevicesList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible" >
+    </ListView>
+
+    <Button
+        android:id="@+id/btnScanBluetoothDevice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_button_scan_device" />
+</LinearLayout>
