@@ -1,16 +1,22 @@
 package com.edwardpang.escmanager;
 
 import java.util.Locale;
+import java.util.Set;
 
 import android.app.Activity;
 import android.app.ActionBar;
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ActionBar.Tab;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.Intent;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,9 +24,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
+	private static final String	TAG = "MainActivity";
+	private static final int	PRIVATE_CONST_REQUEST_ENABLE_BT = 0x0BEEF001;
+	
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
 	 * fragments for each of the sections. We use a {@link FragmentPagerAdapter}
@@ -34,6 +44,9 @@ public class MainActivity extends Activity {
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
+	
+	BluetoothAdapter		mBtAdapter;
+	Set<BluetoothDevice>	mBtAdapterBondedDevices;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +60,25 @@ public class MainActivity extends Activity {
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
+		
+		mBtAdapter = BluetoothAdapter.getDefaultAdapter();
+		if (mBtAdapter == null) {
+			Toast.makeText(this, "Device does not support Bluetooth", Toast.LENGTH_SHORT).show();
+			MainActivity.this.finish();
+		}
+        
+		if (!mBtAdapter.isEnabled()) {
+	        Log.d(TAG, "Bluetooth Adaptor is disabled");
+        	Intent intentBtEnable = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+        	startActivityForResult(intentBtEnable, PRIVATE_CONST_REQUEST_ENABLE_BT);
+		}
+		else {
+			mBtAdapterBondedDevices = mBtAdapter.getBondedDevices();
+			
+			DialogFragment newFragment = new PickBluetoothDeviceDialogFragment();
+		    newFragment.show(getFragmentManager(), "PickBluetoothDevice");
+		}
+        
 	}
 
 	@Override

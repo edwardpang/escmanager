@@ -25,16 +25,16 @@ public class SplashScreenActivity extends Activity {
 		}
         Log.d(TAG, "Bluetooth Adaptor is available");
 		
-		if (mBtAdapter.isEnabled ( )) {
-			Toast.makeText(this, "Bluetooth is enabled", Toast.LENGTH_SHORT).show();
-	        Log.d(TAG, "Bluetooth Adaptor is enabled");
-	        //changeActivity ( );
-		}
-		else {
+		if (!mBtAdapter.isEnabled ( )) {
 	        Log.d(TAG, "Bluetooth Adaptor is disabled");
         	Intent intentBtEnable = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
         	startActivityForResult(intentBtEnable, PRIVATE_CONST_REQUEST_ENABLE_BT);
         }
+		else {
+			Toast.makeText(this, "Bluetooth is enabled", Toast.LENGTH_SHORT).show();
+	        Log.d(TAG, "Bluetooth Adaptor is enabled");
+	        //changeActivity ( );
+		}
 		
         /****** Create Thread that will sleep for 5 seconds *************/        
        Thread background = new Thread() {
