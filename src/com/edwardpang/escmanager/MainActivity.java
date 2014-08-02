@@ -1,13 +1,18 @@
 package com.edwardpang.escmanager;
 
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Set;
 
+import android.app.ActionBar;
+import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
@@ -50,20 +55,12 @@ public class MainActivity extends Activity {
     private BluetoothChatService mChatService = null;
     // String buffer for outgoing messages
     private StringBuffer mOutStringBuffer;
-	
-	/**
-	 * The {@link android.support.v4.view.PagerAdapter} that will provide
-	 * fragments for each of the sections. We use a {@link FragmentPagerAdapter}
-	 * derivative, which will keep every loaded fragment in memory. If this
-	 * becomes too memory intensive, it may be best to switch to a
-	 * {@link android.support.v13.app.FragmentStatePagerAdapter}.
-	 */
-	SectionsPagerAdapter mSectionsPagerAdapter;
 
 	/**
 	 * The {@link ViewPager} that will host the section contents.
 	 */
 	ViewPager mViewPager;
+	TabsAdapter mTabsAdapter;
 	
 	BluetoothAdapter		mBtAdapter;
 	Set<BluetoothDevice>	mBtAdapterBondedDevices;
@@ -75,14 +72,30 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		// Create the adapter that will return a fragment for each of the three
-		// primary sections of the activity.
-		mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
-
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
-		mViewPager.setAdapter(mSectionsPagerAdapter);
-		
+		setContentView(mViewPager);
+	
+		final ActionBar bar = getActionBar();
+        bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        //bar.setDisplayOptions(0, ActionBar.DISPLAY_SHOW_TITLE);
+
+        mTabsAdapter = new TabsAdapter(this, mViewPager);
+        mTabsAdapter.addTab(bar.newTab().setText(R.string.title_section_monitor),
+                StatusFragment.class, null);
+        mTabsAdapter.addTab(bar.newTab().setText(R.string.title_section_general_setting),
+                ConfigFragment.class, null);
+        mTabsAdapter.addTab(bar.newTab().setText(R.string.title_section_motor_timing_setting),
+                ConfigFragment.class, null);
+        mTabsAdapter.addTab(bar.newTab().setText(R.string.title_section_other_setting),
+                ConfigFragment.class, null);
+        mTabsAdapter.addTab(bar.newTab().setText(R.string.title_section_testing),
+                ConfigFragment.class, null);
+
+        if (savedInstanceState != null) {
+            bar.setSelectedNavigationItem(savedInstanceState.getInt("tab", 0));
+        }
+
 		mBtAdapter = BluetoothAdapter.getDefaultAdapter();
 		if (mBtAdapter == null) {
 			Toast.makeText(this, "Device does not support Bluetooth", Toast.LENGTH_SHORT).show();
@@ -99,7 +112,8 @@ public class MainActivity extends Activity {
 			Intent dialogIntent = new Intent (this, SelectBluetoothDeviceDialogActivity.class);
         	startActivityForResult (dialogIntent, PRIVATE_CONST_SELECT_BLUETOOTH_DEVICE);
 		}
-        
+		
+
 	}
 
     @Override
@@ -175,79 +189,81 @@ public class MainActivity extends Activity {
 		}
 	}
 	
-	/**
-	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-	 * one of the sections/tabs/pages.
-	 */
-	public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-		public SectionsPagerAdapter(FragmentManager fm) {
-			super(fm);
+    public static class TabsAdapter extends FragmentPagerAdapter
+    	implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
+		private final Context mContext;
+		private final ActionBar mActionBar;
+		private final ViewPager mViewPager;
+		private final ArrayList<TabInfo> mTabs = new ArrayList<TabInfo>();
+		
+		static final class TabInfo {
+		    private final Class<?> clss;
+		    private final Bundle args;
+		
+		    TabInfo(Class<?> _class, Bundle _args) {
+		        clss = _class;
+		        args = _args;
+		    }
 		}
-
-		@Override
-		public Fragment getItem(int position) {
-			// getItem is called to instantiate the fragment for the given page.
-			// Return a PlaceholderFragment (defined as a static inner class
-			// below).
-			return PlaceholderFragment.newInstance(position + 1);
+		
+		public TabsAdapter(Activity activity, ViewPager pager) {
+		    super(activity.getFragmentManager());
+		    mContext = activity;
+		    mActionBar = activity.getActionBar();
+		    mViewPager = pager;
+		    mViewPager.setAdapter(this);
+		    mViewPager.setOnPageChangeListener(this);
 		}
-
+		
+		public void addTab(ActionBar.Tab tab, Class<?> clss, Bundle args) {
+		    TabInfo info = new TabInfo(clss, args);
+		    tab.setTag(info);
+		    tab.setTabListener(this);
+		    mTabs.add(info);
+		    mActionBar.addTab(tab);
+		    notifyDataSetChanged();
+		}
+		
 		@Override
 		public int getCount() {
-			// Show 5 total pages.
-			return 5;
+		    return mTabs.size();
 		}
-
+		
 		@Override
-		public CharSequence getPageTitle(int position) {
-			Locale l = Locale.getDefault();
-			switch (position) {
-			case 0:
-				return getString(R.string.title_section_monitor).toUpperCase(l);
-			case 1:
-				return getString(R.string.title_section_general_setting).toUpperCase(l);
-			case 2:
-				return getString(R.string.title_section_motor_timing_setting).toUpperCase(l);
-			case 3:
-				return getString(R.string.title_section_other_setting).toUpperCase(l);
-			case 4:
-				return getString(R.string.title_section_testing).toUpperCase(l);
-			}
-			return null;
+		public Fragment getItem(int position) {
+		    TabInfo info = mTabs.get(position);
+		    return Fragment.instantiate(mContext, info.clss.getName(), info.args);
 		}
-	}
-
-	/**
-	 * A placeholder fragment containing a simple view.
-	 */
-	public static class PlaceholderFragment extends Fragment {
-		/**
-		 * The fragment argument representing the section number for this
-		 * fragment.
-		 */
-		private static final String ARG_SECTION_NUMBER = "section_number";
-
-		/**
-		 * Returns a new instance of this fragment for the given section number.
-		 */
-		public static PlaceholderFragment newInstance(int sectionNumber) {
-			PlaceholderFragment fragment = new PlaceholderFragment();
-			Bundle args = new Bundle();
-			args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-			fragment.setArguments(args);
-			return fragment;
-		}
-
-		public PlaceholderFragment() {
-		}
-
+		
 		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_main, container,
-					false);
-			return rootView;
+		public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+		}
+		
+		@Override
+		public void onPageSelected(int position) {
+		    mActionBar.setSelectedNavigationItem(position);
+		}
+		
+		@Override
+		public void onPageScrollStateChanged(int state) {
+		}
+		
+		@Override
+		public void onTabSelected(Tab tab, FragmentTransaction ft) {
+		    Object tag = tab.getTag();
+		    for (int i=0; i<mTabs.size(); i++) {
+		        if (mTabs.get(i) == tag) {
+		            mViewPager.setCurrentItem(i);
+		        }
+		    }
+		}
+		
+		@Override
+		public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+		}
+		
+		@Override
+		public void onTabReselected(Tab tab, FragmentTransaction ft) {
 		}
 	}
 
