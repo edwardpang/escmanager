@@ -23,5 +23,5 @@
     
     <string name="hello_world">Hello world!</string>
     
-
+	<string name="at_cmd_test">AT</string>
 </resources>

@@ -90,7 +90,7 @@ public class MainActivity extends Activity {
         mTabsAdapter.addTab(bar.newTab().setText(R.string.title_section_other_setting),
                 ConfigFragment.class, null);
         mTabsAdapter.addTab(bar.newTab().setText(R.string.title_section_testing),
-                ConfigFragment.class, null);
+                TestingFragment.class, null);
 
         if (savedInstanceState != null) {
             bar.setSelectedNavigationItem(savedInstanceState.getInt("tab", 0));
