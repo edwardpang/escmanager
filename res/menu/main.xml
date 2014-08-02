@@ -2,13 +2,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.edwardpang.escmanager.MainActivity" >
 
+    <item android:id="@+id/action_connection_status"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_connection_status"
+        android:icon="@drawable/ic_action_bluetooth" />
+    
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
-        android:title="@string/action_settings" android:icon="@drawable/ic_action_overflow">
+        android:title="@string/action_settings" 
+        android:icon="@drawable/ic_action_overflow">
         <menu>
-            <item android:id="@+id/action_settings_select_device" android:title="@string/action_settings_select_device"/>
+            <item android:id="@+id/action_settings_select_device" 
+                android:title="@string/action_settings_select_device"/>
         </menu>
     </item>
 

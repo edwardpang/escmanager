@@ -11,6 +11,8 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,13 +20,36 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
 	private static final String	TAG = "MainActivity";
+	private static final boolean D = true;
 	private static final int	PRIVATE_CONST_REQUEST_ENABLE_BT = 0x0BEEF001;
-	private static final int	PRIVATE_CONST_PICK_BLUETOOTH_DEVICE = 0x0BEEF002;
+	private static final int	PRIVATE_CONST_SELECT_BLUETOOTH_DEVICE = 0x0BEEF002;
+	
+    // Message types sent from the BluetoothChatService Handler
+    public static final int MESSAGE_STATE_CHANGE = 1;
+    public static final int MESSAGE_READ = 2;
+    public static final int MESSAGE_WRITE = 3;
+    public static final int MESSAGE_DEVICE_NAME = 4;
+    public static final int MESSAGE_TOAST = 5;
+    
+    // Key names received from the BluetoothChatService Handler
+    public static final String DEVICE_NAME = "device_name";
+    public static final String TOAST = "toast";
+    
+    // Member object for the chat services
+    private BluetoothChatService mChatService = null;
+    // String buffer for outgoing messages
+    private StringBuffer mOutStringBuffer;
 	
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -42,7 +67,9 @@ public class MainActivity extends Activity {
 	
 	BluetoothAdapter		mBtAdapter;
 	Set<BluetoothDevice>	mBtAdapterBondedDevices;
-
+	
+	Menu					mMenu;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -59,7 +86,8 @@ public class MainActivity extends Activity {
 		mBtAdapter = BluetoothAdapter.getDefaultAdapter();
 		if (mBtAdapter == null) {
 			Toast.makeText(this, "Device does not support Bluetooth", Toast.LENGTH_SHORT).show();
-			MainActivity.this.finish();
+			finish();
+			return;
 		}
         
 		if (!mBtAdapter.isEnabled()) {
@@ -69,15 +97,40 @@ public class MainActivity extends Activity {
 		}
 		else {
 			Intent dialogIntent = new Intent (this, SelectBluetoothDeviceDialogActivity.class);
-        	startActivityForResult (dialogIntent, PRIVATE_CONST_PICK_BLUETOOTH_DEVICE);
+        	startActivityForResult (dialogIntent, PRIVATE_CONST_SELECT_BLUETOOTH_DEVICE);
 		}
         
 	}
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(D) Log.e(TAG, "++ ON START ++");
+
+        // If BT is not on, request that it be enabled.
+        // setupChat() will then be called during onActivityResult
+        if (!mBtAdapter.isEnabled()) {
+            Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableIntent, PRIVATE_CONST_REQUEST_ENABLE_BT);
+        // Otherwise, setup the chat session
+        } else {
+            if (mChatService == null) setupChat();
+        }
+    }
+    
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        // Stop the Bluetooth chat services
+        if (mChatService != null) mChatService.stop();
+        if(D) Log.e(TAG, "--- ON DESTROY ---");
+    }
+    
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
+		mMenu = menu;
 		return true;
 	}
 
@@ -92,12 +145,36 @@ public class MainActivity extends Activity {
 		}
 		else if (id == R.id.action_settings_select_device) {
 			Intent dialogIntent = new Intent (this, SelectBluetoothDeviceDialogActivity.class);
-        	startActivityForResult (dialogIntent, PRIVATE_CONST_PICK_BLUETOOTH_DEVICE);
+        	startActivityForResult (dialogIntent, PRIVATE_CONST_SELECT_BLUETOOTH_DEVICE);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		//super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == PRIVATE_CONST_REQUEST_ENABLE_BT) {
+			if (resultCode == RESULT_OK) {
+				Toast.makeText(this, "Bluetooth is enabled", Toast.LENGTH_SHORT).show();
+			}
+			else if (resultCode == RESULT_CANCELED) {
+				Toast.makeText(this, "Bluetooth is NOT enabled, leaving application...", Toast.LENGTH_LONG).show();
+				MainActivity.this.finish();
+			}
+		}
+		else if (requestCode == PRIVATE_CONST_SELECT_BLUETOOTH_DEVICE) {
+			if (resultCode == RESULT_OK) {
+				String name = data.getStringExtra("name");
+				String address = data.getStringExtra("address");
+				
+				Toast.makeText(this, "Device name " + name + " address " + address + " is selected", Toast.LENGTH_SHORT).show();
+				BluetoothDevice device = mBtAdapter.getRemoteDevice(address);
+				mChatService.connect(device, false);
+			}
+		}
+	}
+	
 	/**
 	 * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
 	 * one of the sections/tabs/pages.
@@ -118,8 +195,8 @@ public class MainActivity extends Activity {
 
 		@Override
 		public int getCount() {
-			// Show 3 total pages.
-			return 4;
+			// Show 5 total pages.
+			return 5;
 		}
 
 		@Override
@@ -127,13 +204,15 @@ public class MainActivity extends Activity {
 			Locale l = Locale.getDefault();
 			switch (position) {
 			case 0:
-				return getString(R.string.title_section1).toUpperCase(l);
+				return getString(R.string.title_section_monitor).toUpperCase(l);
 			case 1:
-				return getString(R.string.title_section2).toUpperCase(l);
+				return getString(R.string.title_section_general_setting).toUpperCase(l);
 			case 2:
-				return getString(R.string.title_section3).toUpperCase(l);
+				return getString(R.string.title_section_motor_timing_setting).toUpperCase(l);
 			case 3:
-				return getString(R.string.title_section4).toUpperCase(l);
+				return getString(R.string.title_section_other_setting).toUpperCase(l);
+			case 4:
+				return getString(R.string.title_section_testing).toUpperCase(l);
 			}
 			return null;
 		}
@@ -172,4 +251,59 @@ public class MainActivity extends Activity {
 		}
 	}
 
+    private void setupChat() {
+        Log.d(TAG, "setupChat()");
+
+        // Initialize the BluetoothChatService to perform bluetooth connections
+        mChatService = new BluetoothChatService(this, mHandler);
+
+        // Initialize the buffer for outgoing messages
+        mOutStringBuffer = new StringBuffer("");
+    }
+    
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+            case MESSAGE_STATE_CHANGE:
+                if(D) Log.i(TAG, "MESSAGE_STATE_CHANGE: " + msg.arg1);
+                switch (msg.arg1) {
+                case BluetoothChatService.STATE_CONNECTED:
+                	mMenu.findItem (R.id.action_connection_status).setIcon(R.drawable.ic_action_bluetooth_connected);
+                    //mConversationArrayAdapter.clear();
+                    break;
+                case BluetoothChatService.STATE_CONNECTING:
+                	mMenu.findItem (R.id.action_connection_status).setIcon(R.drawable.ic_action_bluetooth_searching);
+                    break;
+                case BluetoothChatService.STATE_LISTEN:
+                case BluetoothChatService.STATE_NONE:
+                	mMenu.findItem (R.id.action_connection_status).setIcon(R.drawable.ic_action_bluetooth);
+                    break;
+                }
+                break;
+            case MESSAGE_WRITE:
+                byte[] writeBuf = (byte[]) msg.obj;
+                // construct a string from the buffer
+                String writeMessage = new String(writeBuf);
+                //mConversationArrayAdapter.add("Me:  " + writeMessage);
+                break;
+            case MESSAGE_READ:
+                byte[] readBuf = (byte[]) msg.obj;
+                // construct a string from the valid bytes in the buffer
+                String readMessage = new String(readBuf, 0, msg.arg1);
+                //mConversationArrayAdapter.add(mConnectedDeviceName+":  " + readMessage);
+                break;
+            case MESSAGE_DEVICE_NAME:
+                // save the connected device's name
+                //mConnectedDeviceName = msg.getData().getString(DEVICE_NAME);
+                //Toast.makeText(getApplicationContext(), "Connected to "
+                //               + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
+                break;
+            case MESSAGE_TOAST:
+                Toast.makeText(getApplicationContext(), msg.getData().getString(TOAST),
+                               Toast.LENGTH_SHORT).show();
+                break;
+            }
+        }
+    };
 }

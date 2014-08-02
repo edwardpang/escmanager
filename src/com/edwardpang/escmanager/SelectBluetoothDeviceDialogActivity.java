@@ -62,6 +62,10 @@ public class SelectBluetoothDeviceDialogActivity extends Activity {
 				Log.d (TAG, "Bonded device " + device.getName() + " is found");
 			}
 		}
+		else {
+			String noDevices = getResources().getText(R.string.dialog_text_no_paired_device).toString();
+			mBtAdpaterBondedDevicesStrList.add(noDevices);
+		}
 		
 		mListViewBondedDevice = (ListView) this.findViewById (R.id.lvPairedDevicesList);
 		mBtAdpaterBondedDevicesStrListAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mBtAdpaterBondedDevicesStrList);
@@ -147,8 +151,13 @@ public class SelectBluetoothDeviceDialogActivity extends Activity {
 	
 	@Override
 	public void onDestroy ( ) {
-		unregisterReceiver(mReceiver);		
 		super.onDestroy();
+		
+        if (mBtAdapter != null) {
+        	if (mBtAdapter.isDiscovering())
+        		mBtAdapter.cancelDiscovery();
+        }
+		this.unregisterReceiver(mReceiver);		
 	}
 	
 	// Create a BroadcastReceiver for ACTION_FOUND
