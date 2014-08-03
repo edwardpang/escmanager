@@ -33,7 +33,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity implements TestingFragment.OnTestingFragmentListener{
+public class MainActivity extends Activity implements 
+	TestingFragment.OnTestingFragmentListener, 
+	OtherSettingFragment.OnOtherSettingFragmentListener {
 
 	private static final String	TAG = "MainActivity";
 	private static final boolean D = true;
@@ -88,7 +90,7 @@ public class MainActivity extends Activity implements TestingFragment.OnTestingF
         mTabsAdapter.addTab(bar.newTab().setText(R.string.title_section_motor_timing_setting),
                 ConfigFragment.class, null);
         mTabsAdapter.addTab(bar.newTab().setText(R.string.title_section_other_setting),
-                ConfigFragment.class, null);
+                OtherSettingFragment.class, null);
         mTabsAdapter.addTab(bar.newTab().setText(R.string.title_section_testing),
                 TestingFragment.class, null);
 

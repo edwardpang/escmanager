@@ -58,6 +58,7 @@ public final class R {
         public static final int action_settings=0x7f050009;
         public static final int action_settings_select_device=0x7f05000a;
         public static final int app_name=0x7f050000;
+        public static final int at_cmd_baud_get=0x7f050013;
         public static final int at_cmd_test=0x7f050012;
         public static final int dialog_button_scan_device=0x7f05000f;
         public static final int dialog_text_no_paired_device=0x7f05000e;

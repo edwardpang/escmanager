@@ -9,13 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class TestingFragment extends Fragment {
-	private static final String	TAG = "TestingFragment";
+public class OtherSettingFragment extends Fragment {
+	private static final String	TAG = "OtherSettingFragment";
 
-	OnTestingFragmentListener mCallback;
+	OnOtherSettingFragmentListener mCallback;
 
     // Container Activity must implement this interface
-    public interface OnTestingFragmentListener {
+    public interface OnOtherSettingFragmentListener {
         public void onFragmentEventHandler(String str);
     }
 
@@ -26,7 +26,7 @@ public class TestingFragment extends Fragment {
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
         try {
-            mCallback = (OnTestingFragmentListener) activity;
+            mCallback = (OnOtherSettingFragmentListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnHeadlineSelectedListener");
@@ -38,12 +38,12 @@ public class TestingFragment extends Fragment {
 		View v = inflater.inflate(R.layout.tab_testing, container, false);
 		
 		final Button btnAtCmdTest = (Button) v.findViewById(R.id.btnAtCmdTest);
-		btnAtCmdTest.setText(R.string.at_cmd_test);
+		btnAtCmdTest.setText(R.string.at_cmd_baud_get);
 		btnAtCmdTest.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				mCallback.onFragmentEventHandler ("AT");
+				mCallback.onFragmentEventHandler ("AT+BAUD?");
 			}
 		});
 		return v;
