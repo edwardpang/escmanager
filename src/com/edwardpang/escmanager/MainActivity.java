@@ -33,7 +33,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements TestingFragment.OnTestingFragmentListener{
 
 	private static final String	TAG = "MainActivity";
 	private static final boolean D = true;
@@ -131,7 +131,7 @@ public class MainActivity extends Activity {
             if (mChatService == null) setupChat();
         }
     }
-    
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -266,6 +266,10 @@ public class MainActivity extends Activity {
 		public void onTabReselected(Tab tab, FragmentTransaction ft) {
 		}
 	}
+
+    public void onFragmentEventHandler(String str) {
+    	Log.d (TAG, "onFragmentEventHandler: " + str);
+    }
 
     private void setupChat() {
         Log.d(TAG, "setupChat()");

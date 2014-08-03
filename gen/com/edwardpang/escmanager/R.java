@@ -58,12 +58,13 @@ public final class R {
         public static final int action_settings=0x7f050009;
         public static final int action_settings_select_device=0x7f05000a;
         public static final int app_name=0x7f050000;
-        public static final int at_cmd_test=0x7f050011;
+        public static final int at_cmd_test=0x7f050012;
         public static final int dialog_button_scan_device=0x7f05000f;
         public static final int dialog_text_no_paired_device=0x7f05000e;
         public static final int dialog_text_paired_device_list=0x7f05000c;
         public static final int dialog_text_unpaired_device_list=0x7f05000d;
         public static final int hello_world=0x7f050010;
+        public static final int not_connected=0x7f050011;
         public static final int splash_screen_app_name=0x7f050001;
         public static final int title_activity_main=0x7f050002;
         public static final int title_activity_select_bluetooth_device_dialog=0x7f05000b;

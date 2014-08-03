@@ -22,6 +22,7 @@
     <string name="dialog_button_scan_device">Scan bluetooth device</string>
     
     <string name="hello_world">Hello world!</string>
+    <string name="not_connected">Not Connected</string>
     
 	<string name="at_cmd_test">AT</string>
 </resources>
