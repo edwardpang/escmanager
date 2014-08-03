@@ -53,6 +53,8 @@ public class MainActivity extends Activity implements
     public static final String DEVICE_NAME = "device_name";
     public static final String TOAST = "toast";
     
+    // Name of the connected device
+    private String mConnectedDeviceName = null;
     // Member object for the chat services
     private BluetoothChatService mChatService = null;
     // String buffer for outgoing messages
@@ -114,8 +116,6 @@ public class MainActivity extends Activity implements
 			Intent dialogIntent = new Intent (this, SelectBluetoothDeviceDialogActivity.class);
         	startActivityForResult (dialogIntent, PRIVATE_CONST_SELECT_BLUETOOTH_DEVICE);
 		}
-		
-
 	}
 
     @Override
@@ -271,6 +271,7 @@ public class MainActivity extends Activity implements
 
     public void onFragmentEventHandler(String str) {
     	Log.d (TAG, "onFragmentEventHandler: " + str);
+    	sendMessage (str);
     }
 
     private void setupChat() {
@@ -281,6 +282,29 @@ public class MainActivity extends Activity implements
 
         // Initialize the buffer for outgoing messages
         mOutStringBuffer = new StringBuffer("");
+    }
+    
+    /**
+     * Sends a message.
+     * @param message  A string of text to send.
+     */
+    private void sendMessage(String message) {
+        // Check that we're actually connected before trying anything
+        if (mChatService.getState() != BluetoothChatService.STATE_CONNECTED) {
+            Toast.makeText(this, R.string.not_connected, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Check that there's actually something to send
+        if (message.length() > 0) {
+            // Get the message bytes and tell the BluetoothChatService to write
+            byte[] send = message.getBytes();
+            mChatService.write(send);
+
+            // Reset out string buffer to zero and clear the edit text field
+            mOutStringBuffer.setLength(0);
+            //mOutEditText.setText(mOutStringBuffer);
+        }
     }
     
     private final Handler mHandler = new Handler() {
@@ -308,16 +332,20 @@ public class MainActivity extends Activity implements
                 // construct a string from the buffer
                 String writeMessage = new String(writeBuf);
                 //mConversationArrayAdapter.add("Me:  " + writeMessage);
+                Log.i (TAG, "Me:  " + writeMessage);
+                Toast.makeText(getApplicationContext(), "Me:  " + writeMessage, Toast.LENGTH_SHORT).show();
                 break;
             case MESSAGE_READ:
                 byte[] readBuf = (byte[]) msg.obj;
                 // construct a string from the valid bytes in the buffer
                 String readMessage = new String(readBuf, 0, msg.arg1);
                 //mConversationArrayAdapter.add(mConnectedDeviceName+":  " + readMessage);
+                Log.i (TAG, mConnectedDeviceName+":  " + readMessage);
+                Toast.makeText(getApplicationContext(), mConnectedDeviceName+":  " + readMessage, Toast.LENGTH_SHORT).show();
                 break;
             case MESSAGE_DEVICE_NAME:
                 // save the connected device's name
-                //mConnectedDeviceName = msg.getData().getString(DEVICE_NAME);
+                mConnectedDeviceName = msg.getData().getString(DEVICE_NAME);
                 //Toast.makeText(getApplicationContext(), "Connected to "
                 //               + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
                 break;
