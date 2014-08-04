@@ -30,16 +30,27 @@ public final class R {
         public static final int splashscreen=0x7f020005;
     }
     public static final class id {
-        public static final int action_connection_status=0x7f080009;
-        public static final int action_settings=0x7f08000a;
-        public static final int action_settings_select_device=0x7f08000b;
-        public static final int btnAtCmdTest=0x7f080008;
+        public static final int action_connection_status=0x7f080014;
+        public static final int action_settings=0x7f080015;
+        public static final int action_settings_select_device=0x7f080016;
+        public static final int btnAtCmdAppCheck=0x7f08000f;
+        public static final int btnAtCmdFactoryDefault=0x7f080012;
+        public static final int btnAtCmdGetBaud=0x7f08000a;
+        public static final int btnAtCmdGetName=0x7f080011;
+        public static final int btnAtCmdGetParityBit=0x7f08000b;
+        public static final int btnAtCmdGetStopBit=0x7f08000c;
+        public static final int btnAtCmdGetSwVersion=0x7f080013;
+        public static final int btnAtCmdGetTemp=0x7f080010;
+        public static final int btnAtCmdGetUart=0x7f08000d;
+        public static final int btnAtCmdModuleCheck=0x7f08000e;
+        public static final int btnAtCmdTest=0x7f080009;
         public static final int btnScanBluetoothDevice=0x7f080005;
         public static final int imageSplashScreen=0x7f080006;
         public static final int lvPairedDevicesList=0x7f080002;
         public static final int lvUnpairedDevicesList=0x7f080004;
         public static final int msg=0x7f080007;
         public static final int pager=0x7f080000;
+        public static final int scrollView1=0x7f080008;
         public static final int tvPariedDeviceList=0x7f080001;
         public static final int tvUnpariedDeviceList=0x7f080003;
     }
@@ -48,7 +59,8 @@ public final class R {
         public static final int activity_select_bluetooth_device_dialog=0x7f030001;
         public static final int activity_splash_screen=0x7f030002;
         public static final int tab=0x7f030003;
-        public static final int tab_testing=0x7f030004;
+        public static final int tab_other_setting=0x7f030004;
+        public static final int tab_testing=0x7f030005;
     }
     public static final class menu {
         public static final int main=0x7f070000;
@@ -58,7 +70,16 @@ public final class R {
         public static final int action_settings=0x7f050009;
         public static final int action_settings_select_device=0x7f05000a;
         public static final int app_name=0x7f050000;
-        public static final int at_cmd_baud_get=0x7f050013;
+        public static final int at_cmd_app_check=0x7f050018;
+        public static final int at_cmd_factory_default=0x7f05001b;
+        public static final int at_cmd_get_baud=0x7f050013;
+        public static final int at_cmd_get_name=0x7f05001a;
+        public static final int at_cmd_get_parity_bit=0x7f050014;
+        public static final int at_cmd_get_stop_bit=0x7f050015;
+        public static final int at_cmd_get_sw_version=0x7f05001c;
+        public static final int at_cmd_get_temp=0x7f050019;
+        public static final int at_cmd_get_uart=0x7f050016;
+        public static final int at_cmd_module_check=0x7f050017;
         public static final int at_cmd_test=0x7f050012;
         public static final int dialog_button_scan_device=0x7f05000f;
         public static final int dialog_text_no_paired_device=0x7f05000e;

@@ -25,5 +25,14 @@
     <string name="not_connected">Not Connected</string>
     
 	<string name="at_cmd_test">AT</string>
-	<string name="at_cmd_baud_get">AT+BAUD?</string>
+	<string name="at_cmd_get_baud">AT+BAUD?</string>
+	<string name="at_cmd_get_parity_bit">AT+CHK?</string>
+	<string name="at_cmd_get_stop_bit">AT+STOP?</string>
+	<string name="at_cmd_get_uart">AT+UART?</string>
+	<string name="at_cmd_module_check">AT+SECH?</string>
+	<string name="at_cmd_app_check">AT+APCH?</string>
+	<string name="at_cmd_get_temp">AT+TEMP?</string>
+	<string name="at_cmd_get_name">AT+NAME?</string>
+	<string name="at_cmd_factory_default">AT+DEFAULT</string>
+	<string name="at_cmd_get_sw_version">AT+VERSION?</string>
 </resources>

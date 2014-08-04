@@ -1,13 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-	<Button
-	    android:id="@+id/btnAtCmdTest"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentLeft="true"
-	    android:layout_alignParentTop="true" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+        
+       	<Button
+		    android:id="@+id/btnAtCmdTest"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:text="@string/at_cmd_test" />
+
+		<Button
+		    android:id="@+id/btnAtCmdGetBaud"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:text="@string/at_cmd_get_baud" />		
+		    
+		<Button
+		    android:id="@+id/btnAtCmdGetParityBit"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:text="@string/at_cmd_get_parity_bit" />	
+		    
+		<Button
+		    android:id="@+id/btnAtCmdGetStopBit"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:text="@string/at_cmd_get_stop_bit" />	
+		    
+		<Button
+		    android:id="@+id/btnAtCmdGetUart"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:text="@string/at_cmd_get_uart" />	
+		    
+		<Button
+		    android:id="@+id/btnAtCmdModuleCheck"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:text="@string/at_cmd_module_check" />		
+		    
+		<Button
+		    android:id="@+id/btnAtCmdAppCheck"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:text="@string/at_cmd_app_check" />		
+		      
+		<Button
+		    android:id="@+id/btnAtCmdGetTemp"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:text="@string/at_cmd_get_temp" />	
+				
+		<Button
+		    android:id="@+id/btnAtCmdGetName"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:text="@string/at_cmd_get_name" />	
 		
-</RelativeLayout>
+		<Button
+		    android:id="@+id/btnAtCmdFactoryDefault"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:text="@string/at_cmd_factory_default" />	
+		    
+		<Button
+		    android:id="@+id/btnAtCmdGetSwVersion"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:text="@string/at_cmd_get_sw_version" />	       
+    </LinearLayout>
+</ScrollView>
+
