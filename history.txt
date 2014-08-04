@@ -2,3 +2,4 @@ Date		Tag		md5sum					Description
 ----------	----------	--------------------------------	------------------------------
 2014.08.01	dev_140801	6fa03515a15a9a9ab0f0df6356835c8b	First better looking UI
 2014.08.04	dev_140804	5bb345445a7c8826892ea348f76c57ad	First TX/RX success with BT Module
+2014.08.05	dev_140805	e5e9d6eb1afb5fcc7b2a32dd5b4819b2	Add some test command, and cross page communication
