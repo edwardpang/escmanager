@@ -35,17 +35,8 @@ public class OtherSettingFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.tab_testing, container, false);
-		
-		final Button btnAtCmdTest = (Button) v.findViewById(R.id.btnAtCmdTest);
-		btnAtCmdTest.setText(R.string.at_cmd_baud_get);
-		btnAtCmdTest.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				mCallback.onFragmentEventHandler ("AT+BAUD?");
-			}
-		});
+		View v = inflater.inflate(R.layout.tab_other_setting, container, false);
+
 		return v;
 	}
 }
