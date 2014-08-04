@@ -32,14 +32,14 @@ public class MainActivity extends Activity implements
 	private static final boolean D = true;
 	private static final int	PRIVATE_CONST_REQUEST_ENABLE_BT = 0x0BEEF001;
 	private static final int	PRIVATE_CONST_SELECT_BLUETOOTH_DEVICE = 0x0BEEF002;
-	
+
     // Message types sent from the BluetoothChatService Handler
     public static final int MESSAGE_STATE_CHANGE = 1;
     public static final int MESSAGE_READ = 2;
     public static final int MESSAGE_WRITE = 3;
     public static final int MESSAGE_DEVICE_NAME = 4;
     public static final int MESSAGE_TOAST = 5;
-    
+
     // Key names received from the BluetoothChatService Handler
     public static final String DEVICE_NAME = "device_name";
     public static final String TOAST = "toast";
@@ -61,6 +61,8 @@ public class MainActivity extends Activity implements
 	Set<BluetoothDevice>	mBtAdapterBondedDevices;
 	
 	Menu					mMenu;
+	
+	String					mAmbientTemp = "";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +90,7 @@ public class MainActivity extends Activity implements
                 CommandTestingFragment.class, null);
         mTabsAdapter.addTab(bar.newTab().setText(R.string.title_section_protocol_testing),
                 ProtocolTestingFragment.class, null);
+
         if (savedInstanceState != null) {
             bar.setSelectedNavigationItem(savedInstanceState.getInt("tab", 0));
         }
@@ -303,8 +306,14 @@ public class MainActivity extends Activity implements
     	if(D) Toast.makeText(getApplicationContext(), mConnectedDeviceName+":  " + message, Toast.LENGTH_SHORT).show();
         // Check that there's actually something to send
         if (message.length() > 0) {
-
+        	if (message.contains("OK+TEMP:")) {
+        		mAmbientTemp = message.split(":")[1];
+        	}
         }
+    }
+    
+    public String getAmbientTemp () {
+    	return mAmbientTemp;    	
     }
     
     @SuppressLint("HandlerLeak") private final Handler mHandler = new Handler() {
