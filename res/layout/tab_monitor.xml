@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin" >
+
+        <TableRow
+            android:id="@+id/tab_monitor_row_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#dcdcdc"
+            android:padding="@dimen/table_padding"
+            android:textColor="#000" >
+
+            <TextView
+                android:id="@+id/tvTabMonitorRowHeadingDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/tab_monitor_row_heading_description" />
+
+			<TextView
+                android:id="@+id/tvTabMonitorRowHeadingValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/tab_monitor_row_heading_value" />
+                        
+			<TextView
+                android:id="@+id/tvTabMonitorRowHeadingUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/tab_monitor_row_heading_unit" />
+        </TableRow>
+        
+        <TableRow
+            android:id="@+id/tab_monitor_row_ambient_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/table_padding" >
+			
+            <TextView
+                android:id="@+id/tvTabMonitorRowAmbientTempDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/tab_monitor_row_ambient_temp_description" />
+            
+			<TextView
+                android:id="@+id/tvTabMonitorRowAmbientTempValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/tab_monitor_row_ambient_temp_value" />
+                        
+			<TextView
+                android:id="@+id/tvTabMonitorRowAmbientTempUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/tab_monitor_row_ambient_temp_unit" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tab_monitor_row_motor_speed_cur"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/table_padding" >
+			
+            <TextView
+                android:id="@+id/tvTabMonitorRowMotorSpeedCurDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/tab_monitor_row_motor_speed_cur_description" />
+            
+			<TextView
+                android:id="@+id/tvTabMonitorRowMotorSpeedCurValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/tab_monitor_row_motor_speed_cur_value" />
+                        
+			<TextView
+                android:id="@+id/tvTabMonitorRowMotorSpeedCurUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/tab_monitor_row_motor_speed_cur_unit" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tab_monitor_row_motor_speed_max"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/table_padding" >
+			
+            <TextView
+                android:id="@+id/tvTabMonitorRowMotorSpeedMaxDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/tab_monitor_row_motor_speed_max_description" />
+            
+			<TextView
+                android:id="@+id/tvTabMonitorRowMotorSpeedMaxValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/tab_monitor_row_motor_speed_max_value" />
+                        
+			<TextView
+                android:id="@+id/tvTabMonitorRowMotorSpeedMaxUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/tab_monitor_row_motor_speed_max_unit" />
+        </TableRow>
+
+    </TableLayout>
+
+</ScrollView>
+

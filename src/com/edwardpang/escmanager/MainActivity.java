@@ -24,8 +24,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 public class MainActivity extends Activity implements 
-	TestingFragment.OnTestingFragmentListener, 
-	OtherSettingFragment.OnOtherSettingFragmentListener {
+	OtherSettingFragment.OnOtherSettingFragmentListener,
+	CommandTestingFragment.OnTestingFragmentListener,
+	ProtocolTestingFragment.OnTestingFragmentListener {
 
 	private static final String	TAG = "MainActivity";
 	private static final boolean D = true;
@@ -76,16 +77,17 @@ public class MainActivity extends Activity implements
 
         mTabsAdapter = new TabsAdapter(this, mViewPager);
         mTabsAdapter.addTab(bar.newTab().setText(R.string.title_section_monitor),
-                StatusFragment.class, null);
+                MonitorFragment.class, null);
         mTabsAdapter.addTab(bar.newTab().setText(R.string.title_section_general_setting),
                 ConfigFragment.class, null);
         mTabsAdapter.addTab(bar.newTab().setText(R.string.title_section_motor_timing_setting),
                 ConfigFragment.class, null);
         mTabsAdapter.addTab(bar.newTab().setText(R.string.title_section_other_setting),
                 OtherSettingFragment.class, null);
-        mTabsAdapter.addTab(bar.newTab().setText(R.string.title_section_testing),
-                TestingFragment.class, null);
-
+        mTabsAdapter.addTab(bar.newTab().setText(R.string.title_section_command_testing),
+                CommandTestingFragment.class, null);
+        mTabsAdapter.addTab(bar.newTab().setText(R.string.title_section_protocol_testing),
+                ProtocolTestingFragment.class, null);
         if (savedInstanceState != null) {
             bar.setSelectedNavigationItem(savedInstanceState.getInt("tab", 0));
         }
@@ -297,6 +299,14 @@ public class MainActivity extends Activity implements
         }
     }
     
+    private void receiveMessage(String message) {
+    	if(D) Toast.makeText(getApplicationContext(), mConnectedDeviceName+":  " + message, Toast.LENGTH_SHORT).show();
+        // Check that there's actually something to send
+        if (message.length() > 0) {
+
+        }
+    }
+    
     @SuppressLint("HandlerLeak") private final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -331,7 +341,8 @@ public class MainActivity extends Activity implements
                 String readMessage = new String(readBuf, 0, msg.arg1);
                 //mConversationArrayAdapter.add(mConnectedDeviceName+":  " + readMessage);
                 Log.i (TAG, mConnectedDeviceName+":  " + readMessage);
-                Toast.makeText(getApplicationContext(), mConnectedDeviceName+":  " + readMessage, Toast.LENGTH_SHORT).show();
+                
+                receiveMessage (readMessage);
                 break;
             case MESSAGE_DEVICE_NAME:
                 // save the connected device's name

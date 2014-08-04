@@ -9,8 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class TestingFragment extends Fragment {
-	private static final String	TAG = "TestingFragment";
+public class CommandTestingFragment extends Fragment {
+	private static final String	TAG = "CommandTestingFragment";
 
 	OnTestingFragmentListener mCallback;
 
@@ -35,7 +35,7 @@ public class TestingFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.tab_testing, container, false);
+		View v = inflater.inflate(R.layout.tab_command_testing, container, false);
 		
 		final Button btnAtCmdTest = (Button) v.findViewById(R.id.btnAtCmdTest);
 		btnAtCmdTest.setOnClickListener(new View.OnClickListener() {
@@ -134,7 +134,16 @@ public class TestingFragment extends Fragment {
 			public void onClick(View v) {
 				mCallback.onFragmentEventHandler ("AT+VERSION?");
 			}
-		});		
+		});	
+		
+		final Button btnAtCmdGetAddress = (Button) v.findViewById(R.id.btnAtCmdGetAddress);
+		btnAtCmdGetAddress.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				mCallback.onFragmentEventHandler ("AT+LADD?");
+			}
+		});	
 		return v;
 	}	
 }

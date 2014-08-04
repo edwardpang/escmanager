@@ -73,7 +73,13 @@
 		    android:id="@+id/btnAtCmdGetSwVersion"
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
-		    android:text="@string/at_cmd_get_sw_version" />	       
+		    android:text="@string/at_cmd_get_sw_version" />
+		
+		<Button
+		    android:id="@+id/btnAtCmdGetAddress"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:text="@string/at_cmd_get_address" />	  	       
     </LinearLayout>
 </ScrollView>
 

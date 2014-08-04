@@ -9,7 +9,8 @@
     <string name="title_section_general_setting">General Setting</string>
     <string name="title_section_motor_timing_setting">Motor Timing Setting</string>
     <string name="title_section_other_setting">Other Setting</string>
-    <string name="title_section_testing">Testing</string>
+    <string name="title_section_command_testing">Command Testing</string>
+    <string name="title_section_protocol_testing">Protocol Testing</string>
     	
 	<string name="action_connection_status">Connection Status</string>
     <string name="action_settings">Settings</string>
@@ -24,6 +25,22 @@
     <string name="hello_world">Hello world!</string>
     <string name="not_connected">Not Connected</string>
     
+    <string name="tab_monitor_row_heading_description">Description</string>
+    <string name="tab_monitor_row_heading_value">Value</string>
+    <string name="tab_monitor_row_heading_unit">Unit</string>
+
+    <string name="tab_monitor_row_ambient_temp_description">Ambient Temperature</string>
+    <string name="tab_monitor_row_ambient_temp_value">Value</string>
+    <string name="tab_monitor_row_ambient_temp_unit">Degree C</string>
+
+    <string name="tab_monitor_row_motor_speed_cur_description">Motor Speed (Cur)</string>
+    <string name="tab_monitor_row_motor_speed_cur_value">Value</string>
+    <string name="tab_monitor_row_motor_speed_cur_unit">rpm</string>
+
+    <string name="tab_monitor_row_motor_speed_max_description">Motor Speed (Max)</string>
+    <string name="tab_monitor_row_motor_speed_max_value">Value</string>
+    <string name="tab_monitor_row_motor_speed_max_unit">rpm</string>
+    
 	<string name="at_cmd_test">AT</string>
 	<string name="at_cmd_get_baud">AT+BAUD?</string>
 	<string name="at_cmd_get_parity_bit">AT+CHK?</string>
@@ -35,4 +52,5 @@
 	<string name="at_cmd_get_name">AT+NAME?</string>
 	<string name="at_cmd_factory_default">AT+DEFAULT</string>
 	<string name="at_cmd_get_sw_version">AT+VERSION?</string>
+	<string name="at_cmd_get_address">AT+LADD?</string>
 </resources>
