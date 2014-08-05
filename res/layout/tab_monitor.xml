@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/tab_monitor_row_ambient_temp_value" />
+                android:text="@string/not_available" />
                         
 			<TextView
                 android:id="@+id/tvTabMonitorRowAmbientTempUnit"
@@ -88,7 +88,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/tab_monitor_row_motor_speed_cur_value" />
+                android:text="@string/not_available" />
                         
 			<TextView
                 android:id="@+id/tvTabMonitorRowMotorSpeedCurUnit"
@@ -116,7 +116,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/tab_monitor_row_motor_speed_max_value" />
+                android:text="@string/not_available" />
                         
 			<TextView
                 android:id="@+id/tvTabMonitorRowMotorSpeedMaxUnit"

@@ -24,22 +24,33 @@
     
     <string name="hello_world">Hello world!</string>
     <string name="not_connected">Not Connected</string>
-    
+    <string name="not_available">N/A</string>
+    <string name="hidden_password">****</string>
+    <string name="btn_update">Update</string>
+    <string name="btn_modify">Modify</string>
+        
     <string name="tab_monitor_row_heading_description">Description</string>
     <string name="tab_monitor_row_heading_value">Value</string>
     <string name="tab_monitor_row_heading_unit">Unit</string>
-
     <string name="tab_monitor_row_ambient_temp_description">Ambient Temperature</string>
-    <string name="tab_monitor_row_ambient_temp_value">Value</string>
     <string name="tab_monitor_row_ambient_temp_unit">Degree C</string>
-
     <string name="tab_monitor_row_motor_speed_cur_description">Motor Speed (Cur)</string>
-    <string name="tab_monitor_row_motor_speed_cur_value">Value</string>
     <string name="tab_monitor_row_motor_speed_cur_unit">rpm</string>
-
     <string name="tab_monitor_row_motor_speed_max_description">Motor Speed (Max)</string>
-    <string name="tab_monitor_row_motor_speed_max_value">Value</string>
     <string name="tab_monitor_row_motor_speed_max_unit">rpm</string>
+
+    <string name="tab_other_setting_row_heading_description">Description</string>
+    <string name="tab_other_setting_row_heading_value">Value</string>
+    <string name="tab_other_setting_row_heading_action">Action</string>
+    <string name="tab_other_setting_row_esc_fw_version">ESC Firmware Version</string>
+    <string name="tab_other_setting_row_esc_name">ESC Name (Bluetooth)</string>
+    <string name="tab_other_setting_row_esc_password">ESC Password (Bluetooth)</string>
+    <string name="tab_other_setting_row_bt_test">Bluetooth Test</string>
+
+    <string name="dialog_esc_name_title">Modify ESC name</string>
+    <string name="dialog_esc_name_message">Enter a new name (1-12 bytes)</string>
+    <string name="dialog_esc_name_btn_modify">Modify</string>
+    <string name="dialog_esc_name_btn_cancel">Cancel</string>
     
 	<string name="at_cmd_test">AT</string>
 	<string name="at_cmd_get_baud">AT+BAUD?</string>
@@ -50,6 +61,8 @@
 	<string name="at_cmd_app_check">AT+APCH?</string>
 	<string name="at_cmd_get_temp">AT+TEMP?</string>
 	<string name="at_cmd_get_name">AT+NAME?</string>
+	<string name="at_cmd_set_name">AT+NAME</string>
+	<string name="at_cmd_set_name_response">OK+Set:</string>
 	<string name="at_cmd_factory_default">AT+DEFAULT</string>
 	<string name="at_cmd_get_sw_version">AT+VERSION?</string>
 	<string name="at_cmd_get_address">AT+LADD?</string>

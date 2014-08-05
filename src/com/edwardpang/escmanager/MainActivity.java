@@ -21,15 +21,17 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity implements 
+	MonitorFragment.OnMonitorFragmentListener,
 	OtherSettingFragment.OnOtherSettingFragmentListener,
-	CommandTestingFragment.OnTestingFragmentListener,
-	ProtocolTestingFragment.OnTestingFragmentListener {
+	CommandTestingFragment.OnCommandTestingFragmentListener,
+	ProtocolTestingFragment.OnProtocolTestingFragmentListener {
 
 	private static final String	TAG = "MainActivity";
-	private static final boolean D = true;
+	private static final boolean D = false;
 	private static final int	PRIVATE_CONST_REQUEST_ENABLE_BT = 0x0BEEF001;
 	private static final int	PRIVATE_CONST_SELECT_BLUETOOTH_DEVICE = 0x0BEEF002;
 
@@ -61,9 +63,9 @@ public class MainActivity extends Activity implements
 	Set<BluetoothDevice>	mBtAdapterBondedDevices;
 	
 	Menu					mMenu;
-	
-	String					mAmbientTemp = "";
-	
+	boolean					mChatServiceBusy = false;
+	String					mLastSendMessage = "";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -265,10 +267,20 @@ public class MainActivity extends Activity implements
 	}
 
     public void onFragmentEventHandler(String str) {
+    	mChatServiceBusy = true;
     	Log.d (TAG, "onFragmentEventHandler: " + str);
+    	mLastSendMessage = str;
     	sendMessage (str);
     }
 
+    public int getBluetoothChatServiceState () {
+    	return mChatService.getState();
+    }
+    
+    public boolean isBluetoothChatServiceBusy () {
+    	return mChatServiceBusy;
+    }
+    
     private void setupChat() {
         Log.d(TAG, "setupChat()");
 
@@ -303,17 +315,49 @@ public class MainActivity extends Activity implements
     }
     
     private void receiveMessage(String message) {
-    	if(D) Toast.makeText(getApplicationContext(), mConnectedDeviceName+":  " + message, Toast.LENGTH_SHORT).show();
         // Check that there's actually something to send
         if (message.length() > 0) {
         	if (message.contains("OK+TEMP:")) {
-        		mAmbientTemp = message.split(":")[1];
+        		MonitorFragment f = (MonitorFragment) getFragmentManager().findFragmentByTag ("android:switcher:"+R.id.pager+":0");
+        		if(f != null) {
+        	         if(f.getView() != null) {
+        	        	 TextView tv = (TextView) f.getView().findViewById(R.id.tvTabMonitorRowAmbientTempValue);
+        	        	 tv.setText(message.split(":")[1]);
+        	         }
+        		}
         	}
+        	else if (message.contains("OK+NAME:")) {
+        		OtherSettingFragment f = (OtherSettingFragment) getFragmentManager().findFragmentByTag ("android:switcher:"+R.id.pager+":3");
+        		if(f != null) {
+        	         if(f.getView() != null) {
+        	        	 TextView tv = (TextView) f.getView().findViewById(R.id.tvTabOtherSettingRowEscNameValue);
+        	        	 tv.setText(message.split(":")[1]);
+        	         }
+        		}
+        	}
+        	else if (message.contains("OK+PIN:")) {
+        		OtherSettingFragment f = (OtherSettingFragment) getFragmentManager().findFragmentByTag ("android:switcher:"+R.id.pager+":3");
+        		if(f != null) {
+        	         if(f.getView() != null) {
+        	        	 TextView tv = (TextView) f.getView().findViewById(R.id.tvTabOtherSettingRowEscPasswordValue);
+        	        	 tv.setText(message.split(":")[1]);
+        	         }
+        		}
+        	}
+        	else if (message.contains(getString(R.string.at_cmd_set_name_response))) {
+        		Log.i (TAG, "Tx: " + mLastSendMessage + "Rx: " + message);
+        		if (mLastSendMessage.contains(getString(R.string.at_cmd_set_name))) {
+	        		OtherSettingFragment f = (OtherSettingFragment) getFragmentManager().findFragmentByTag ("android:switcher:"+R.id.pager+":3");
+	        		if(f != null) {
+	        	         if(f.getView() != null) {
+	        	        	 TextView tv = (TextView) f.getView().findViewById(R.id.tvTabOtherSettingRowEscNameValue);
+	        	        	 tv.setText(message.split(":")[1]);
+	        	         }
+	        		}
+        		}
+        	}
+        	mChatServiceBusy = false;
         }
-    }
-    
-    public String getAmbientTemp () {
-    	return mAmbientTemp;    	
     }
     
     @SuppressLint("HandlerLeak") private final Handler mHandler = new Handler() {
@@ -341,16 +385,16 @@ public class MainActivity extends Activity implements
                 // construct a string from the buffer
                 String writeMessage = new String(writeBuf);
                 //mConversationArrayAdapter.add("Me:  " + writeMessage);
-                Log.i (TAG, "Me:  " + writeMessage);
-                Toast.makeText(getApplicationContext(), "Me:  " + writeMessage, Toast.LENGTH_SHORT).show();
+                Log.d (TAG, "Me:  " + writeMessage);
+                if (D) Toast.makeText(getApplicationContext(), "Me:  " + writeMessage, Toast.LENGTH_SHORT).show();
                 break;
             case MESSAGE_READ:
                 byte[] readBuf = (byte[]) msg.obj;
                 // construct a string from the valid bytes in the buffer
                 String readMessage = new String(readBuf, 0, msg.arg1);
                 //mConversationArrayAdapter.add(mConnectedDeviceName+":  " + readMessage);
-                Log.i (TAG, mConnectedDeviceName+":  " + readMessage);
-                
+                Log.d (TAG, mConnectedDeviceName + ":  " + readMessage);
+            	if(D) Toast.makeText(getApplicationContext(), mConnectedDeviceName+":  " + readMessage, Toast.LENGTH_SHORT).show();
                 receiveMessage (readMessage);
                 break;
             case MESSAGE_DEVICE_NAME:

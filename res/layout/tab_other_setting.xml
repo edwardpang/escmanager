@@ -1,7 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin" >
 
-</RelativeLayout>
+        <TableRow
+            android:id="@+id/tab_other_setting_row_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#dcdcdc"
+            android:padding="@dimen/table_padding"
+            android:textColor="#000" >
+
+            <TextView
+                android:id="@+id/tvTabOtherSettingRowHeadingDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="@string/tab_other_setting_row_heading_description" />
+
+			<TextView
+                android:id="@+id/tvTabOtherSettingRowHeadingValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/tab_other_setting_row_heading_value" />
+                        
+			<TextView
+                android:id="@+id/tvTabOtherSettingRowHeadingAction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/tab_other_setting_row_heading_action" />
+        </TableRow>
+        
+        <TableRow
+            android:id="@+id/tab_monitor_row_ambient_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/table_padding" >
+			
+            <TextView
+                android:id="@+id/tvTabOtherSettingRowEscFwVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="@string/tab_other_setting_row_esc_fw_version" />
+
+			<TextView
+                android:id="@+id/tvTabOtherSettingRowEscFwVersionValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/not_available" />
+
+			<Button
+			    android:id="@+id/btnTabOtherSettingRowEscFwVersionAction"
+			    style="?android:attr/buttonStyleSmall"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="2"
+			    android:text="@string/btn_update" />
+		</TableRow>
+		
+		<TableRow
+            android:id="@+id/tab_monitor_row_motor_speed_max"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/table_padding" >
+			
+            <TextView
+                android:id="@+id/tvTabOtherSettingRowEscName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="@string/tab_other_setting_row_esc_name" />
+
+			<TextView
+                android:id="@+id/tvTabOtherSettingRowEscNameValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/not_available" />
+
+		<Button
+			    android:id="@+id/btnTabOtherSettingRowEscNameAction"
+			    style="?android:attr/buttonStyleSmall"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="2"
+			    android:text="@string/btn_modify" />
+        </TableRow>
+
+		
+        <TableRow
+            android:id="@+id/tab_monitor_row_motor_speed_cur"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/table_padding" >
+			
+            <TextView
+                android:id="@+id/tvTabOtherSettingRowEscPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:text="@string/tab_other_setting_row_esc_password" />
+
+			<TextView
+                android:id="@+id/tvTabOtherSettingRowEscPasswordValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/hidden_password" />
+
+			<Button
+			    android:id="@+id/btnTabOtherSettingRowEscPasswordAction"
+			    style="?android:attr/buttonStyleSmall"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="2"
+			    android:text="@string/btn_modify" />
+        </TableRow>
+
+ 
+    </TableLayout>
+
+</ScrollView>
+

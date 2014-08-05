@@ -12,10 +12,10 @@ import android.widget.Button;
 public class ProtocolTestingFragment extends Fragment {
 	private static final String	TAG = "ProtocolTestingFragment";
 
-	OnTestingFragmentListener mCallback;
+	OnProtocolTestingFragmentListener mCallback;
 
     // Container Activity must implement this interface
-    public interface OnTestingFragmentListener {
+    public interface OnProtocolTestingFragmentListener {
         public void onFragmentEventHandler(String str);
     }
 
@@ -26,10 +26,10 @@ public class ProtocolTestingFragment extends Fragment {
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
         try {
-            mCallback = (OnTestingFragmentListener) activity;
+            mCallback = (OnProtocolTestingFragmentListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement OnHeadlineSelectedListener");
+                    + " must implement OnProtocolTestingFragmentListener");
         }
     }
 
