@@ -3,7 +3,9 @@ package com.edwardpang.escmanager;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.bluetooth.BluetoothDevice;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.util.Log;
@@ -28,6 +30,8 @@ public class OtherSettingFragment extends Fragment {
         public void onFragmentEventHandler(String str);
         public int getBluetoothChatServiceState ( );
         public boolean isBluetoothChatServiceBusy ( );
+        public void createInputPasswordDialog ( );
+        public void createInputNameDialog ( );
     }
 
     @Override
@@ -62,47 +66,7 @@ public class OtherSettingFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
-				LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-				LinearLayout.LayoutParams.MATCH_PARENT,
-				LinearLayout.LayoutParams.MATCH_PARENT);
-				
-				InputFilter[] filters = new InputFilter[1];
-				filters[0] = new InputFilter.LengthFilter(PRIVATE_CONST_ESC_NAME_LENGTH_MAX);
-				
-				final EditText et = new EditText(getActivity());
-				et.setLayoutParams(lp);
-				et.setFilters(filters);
-
-				AlertDialog.Builder ad = new AlertDialog.Builder(getActivity());
-				ad.setCancelable(false);
-				ad.setTitle (R.string.dialog_esc_name_title);
-				ad.setMessage (R.string.dialog_esc_name_message);
-				ad.setView(et);
-				ad.setPositiveButton (R.string.dialog_esc_name_btn_modify, 
-					new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog,int id) {
-							String str = et.getText().toString();
-							if (str.length() <= PRIVATE_CONST_ESC_NAME_LENGTH_MAX && 
-								str.length() >= PRIVATE_CONST_ESC_NAME_LENGTH_MIN) {
-								Log.i (TAG, getString(R.string.dialog_esc_name_title) + " to " + str);
-								mCallback.onFragmentEventHandler(getString(R.string.at_cmd_set_name) + str);
-							}
-							else {
-								Log.i (TAG, "Invalid input length " + str + " (" + str.length() + "bytes)");
-								Toast.makeText(getActivity(), str + " is too long, pleaes try again", Toast.LENGTH_LONG).show();
-							}								
-						}
-					}
-				);
-				ad.setNegativeButton(R.string.dialog_esc_name_btn_cancel, 
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,int id) {
-								Log.i (TAG, getString(R.string.dialog_esc_name_title) + " is cancelled");
-							}
-						}
-					);
-				ad.show();	
-					
+				mCallback.createInputNameDialog ( );
 			}
 		});
 
@@ -111,7 +75,7 @@ public class OtherSettingFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
-				mCallback.onFragmentEventHandler ("AT+PIN?");
+				mCallback.createInputPasswordDialog ( );
 			}
 		});
 		
@@ -120,9 +84,9 @@ public class OtherSettingFragment extends Fragment {
 				try {
 					while (mCallback.getBluetoothChatServiceState ( ) != BluetoothChatService.STATE_CONNECTED);
 					while (mCallback.isBluetoothChatServiceBusy ( ));
-					mCallback.onFragmentEventHandler ("AT+NAME?");
-		        	sleep(500);
-		        	//mCallback.onFragmentEventHandler ("AT+PIN?");
+					mCallback.onFragmentEventHandler (getString(R.string.at_cmd_get_name));
+		        	sleep(200);
+		        	mCallback.onFragmentEventHandler (getString(R.string.at_cmd_get_pin));
 		        	//sleep(500);
 				} catch (Exception e) {
 				}
@@ -133,4 +97,5 @@ public class OtherSettingFragment extends Fragment {
 		
 		return v;
 	}
+
 }

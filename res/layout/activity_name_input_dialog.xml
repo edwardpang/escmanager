@@ -1,0 +1,47 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <TextView
+        android:id="@+id/tvEscName"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content" 
+        android:text="@string/dialog_esc_name_message"
+        android:visibility="visible"
+        android:background="#666"
+        android:textColor="#fff"
+        android:paddingLeft="5dp"/>
+
+    <EditText
+        android:id="@+id/etEscName"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:maxLength="12"
+        android:digits="1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
+        android:ems="10"
+        android:inputType="text" >
+        <requestFocus />
+    </EditText>
+
+    <LinearLayout 
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent" 
+        android:layout_height="wrap_content"
+        android:measureWithLargestChild="true">
+
+        <Button style="?android:attr/buttonBarButtonStyle" android:id="@+id/btnEscNameModify"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/btn_modify" />
+        
+        <Button style="?android:attr/buttonBarButtonStyle" android:id="@+id/btnEscNameCancel"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/btn_cancel" />
+        
+    </LinearLayout>
+</LinearLayout>

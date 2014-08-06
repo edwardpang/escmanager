@@ -34,6 +34,8 @@ public class MainActivity extends Activity implements
 	private static final boolean D = false;
 	private static final int	PRIVATE_CONST_REQUEST_ENABLE_BT = 0x0BEEF001;
 	private static final int	PRIVATE_CONST_SELECT_BLUETOOTH_DEVICE = 0x0BEEF002;
+	private static final int	PRIVATE_CONST_CREATE_ESC_PASSWORD_DIALOG = 0x0BEEF003;
+	private static final int	PRIVATE_CONST_CREATE_ESC_NAME_DIALOG = 0x0BEEF004;
 
     // Message types sent from the BluetoothChatService Handler
     public static final int MESSAGE_STATE_CHANGE = 1;
@@ -65,6 +67,7 @@ public class MainActivity extends Activity implements
 	Menu					mMenu;
 	boolean					mChatServiceBusy = false;
 	String					mLastSendMessage = "";
+	String					mOldPassword = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -186,6 +189,22 @@ public class MainActivity extends Activity implements
 				mChatService.connect(device, false);
 			}
 		}
+		else if (requestCode == PRIVATE_CONST_CREATE_ESC_NAME_DIALOG) {
+			if (resultCode == RESULT_OK) {
+				String strNewName = data.getStringExtra("NewName");
+				onFragmentEventHandler (getString(R.string.at_cmd_set_name) + strNewName);
+			}
+			else
+				Log.i (TAG, "Name Dialog is cancelled");
+		}
+		else if (requestCode == PRIVATE_CONST_CREATE_ESC_PASSWORD_DIALOG) {
+			if (resultCode == RESULT_OK) {
+				String strNewPassword = data.getStringExtra("NewPassword");
+				onFragmentEventHandler (getString(R.string.at_cmd_set_pin) + strNewPassword);
+			}
+			else
+				Log.i (TAG, "Password Dialog is cancelled");
+		}
 	}
 	
     public static class TabsAdapter extends FragmentPagerAdapter
@@ -267,10 +286,15 @@ public class MainActivity extends Activity implements
 	}
 
     public void onFragmentEventHandler(String str) {
-    	mChatServiceBusy = true;
-    	Log.d (TAG, "onFragmentEventHandler: " + str);
-    	mLastSendMessage = str;
-    	sendMessage (str);
+    	if (mChatService.getState() != BluetoothChatService.STATE_CONNECTED) {
+    		Toast.makeText(this, R.string.not_connected, Toast.LENGTH_SHORT).show();
+    	}
+    	else {
+	    	mChatServiceBusy = true;
+	    	Log.d (TAG, "onFragmentEventHandler: " + str);
+	    	mLastSendMessage = str;
+	    	sendMessage (str);
+    	}
     }
 
     public int getBluetoothChatServiceState () {
@@ -280,7 +304,28 @@ public class MainActivity extends Activity implements
     public boolean isBluetoothChatServiceBusy () {
     	return mChatServiceBusy;
     }
+
+    public void createInputNameDialog () {
+    	if (mChatService.getState() != BluetoothChatService.STATE_CONNECTED) {
+    		Toast.makeText(this, R.string.not_connected, Toast.LENGTH_SHORT).show();
+    	}
+    	else {
+			Intent dialogIntent = new Intent (this, NameInputDialogActivity.class);
+	    	startActivityForResult (dialogIntent, PRIVATE_CONST_CREATE_ESC_NAME_DIALOG);
+    	}
+    }
     
+    public void createInputPasswordDialog () {
+    	if (mChatService.getState() != BluetoothChatService.STATE_CONNECTED) {
+    		Toast.makeText(this, R.string.not_connected, Toast.LENGTH_SHORT).show();
+    	}
+    	else {
+			Intent i = new Intent (this, PasswordInputDialogActivity.class);
+			i.putExtra("OldPassword", mOldPassword);
+	    	startActivityForResult (i, PRIVATE_CONST_CREATE_ESC_PASSWORD_DIALOG);
+    	}
+    }
+
     private void setupChat() {
         Log.d(TAG, "setupChat()");
 
@@ -336,16 +381,10 @@ public class MainActivity extends Activity implements
         		}
         	}
         	else if (message.contains("OK+PIN:")) {
-        		OtherSettingFragment f = (OtherSettingFragment) getFragmentManager().findFragmentByTag ("android:switcher:"+R.id.pager+":3");
-        		if(f != null) {
-        	         if(f.getView() != null) {
-        	        	 TextView tv = (TextView) f.getView().findViewById(R.id.tvTabOtherSettingRowEscPasswordValue);
-        	        	 tv.setText(message.split(":")[1]);
-        	         }
-        		}
+        		mOldPassword = message.split(":")[1];
         	}
-        	else if (message.contains(getString(R.string.at_cmd_set_name_response))) {
-        		Log.i (TAG, "Tx: " + mLastSendMessage + "Rx: " + message);
+        	else if (message.contains(getString(R.string.at_cmd_set_response))) {
+        		Log.i (TAG, "Tx: " + mLastSendMessage + " Rx: " + message);
         		if (mLastSendMessage.contains(getString(R.string.at_cmd_set_name))) {
 	        		OtherSettingFragment f = (OtherSettingFragment) getFragmentManager().findFragmentByTag ("android:switcher:"+R.id.pager+":3");
 	        		if(f != null) {
@@ -354,6 +393,9 @@ public class MainActivity extends Activity implements
 	        	        	 tv.setText(message.split(":")[1]);
 	        	         }
 	        		}
+        		}
+        		else if (mLastSendMessage.contains(getString(R.string.at_cmd_set_pin))) {
+        			mOldPassword = message.split(":")[1];
         		}
         	}
         	mChatServiceBusy = false;

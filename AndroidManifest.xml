@@ -32,8 +32,18 @@
         </activity>
         <activity
             android:name=".SelectBluetoothDeviceDialogActivity"
-            android:theme="@android:style/Theme.Holo.Dialog"
-            android:label="@string/title_activity_select_bluetooth_device_dialog" >
+            android:label="@string/title_activity_select_bluetooth_device_dialog"
+            android:theme="@android:style/Theme.Holo.Dialog" >
+        </activity>
+        <activity
+            android:name=".NameInputDialogActivity"
+            android:label="@string/title_activity_name_input_dialog"
+            android:theme="@android:style/Theme.Holo.Dialog" >
+        </activity>
+        <activity
+            android:name=".PasswordInputDialogActivity"
+            android:label="@string/title_activity_password_input_dialog"
+            android:theme="@android:style/Theme.Holo.Dialog" >
         </activity>
     </application>
 
