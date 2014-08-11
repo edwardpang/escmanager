@@ -86,7 +86,7 @@ public class MainActivity extends Activity implements
         mTabsAdapter.addTab(bar.newTab().setText(R.string.title_section_monitor),
                 MonitorFragment.class, null);
         mTabsAdapter.addTab(bar.newTab().setText(R.string.title_section_general_setting),
-                ConfigFragment.class, null);
+                GeneralSettingFragment.class, null);
         mTabsAdapter.addTab(bar.newTab().setText(R.string.title_section_motor_timing_setting),
                 ConfigFragment.class, null);
         mTabsAdapter.addTab(bar.newTab().setText(R.string.title_section_other_setting),
@@ -162,6 +162,11 @@ public class MainActivity extends Activity implements
 		else if (id == R.id.action_settings_select_device) {
 			Intent dialogIntent = new Intent (this, SelectBluetoothDeviceDialogActivity.class);
         	startActivityForResult (dialogIntent, PRIVATE_CONST_SELECT_BLUETOOTH_DEVICE);
+			return true;
+		}
+		else if (id == R.id.action_settings_about) {
+			Intent dialogIntent = new Intent (this, AboutDialogActivity.class);
+        	startActivity (dialogIntent);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

@@ -3,9 +3,32 @@
     tools:context="com.edwardpang.escmanager.MainActivity" >
 
     <item android:id="@+id/action_connection_status"
+        android:orderInCategory="1"
         android:showAsAction="ifRoom"
         android:title="@string/action_connection_status"
         android:icon="@drawable/ic_action_bluetooth" />
+    
+    <item
+        android:id="@+id/action_esc"
+        android:orderInCategory="2"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_esc" 
+        android:icon="@drawable/ic_action_import_export">
+        <menu>
+            <item android:id="@+id/action_esc_apply_to_esc" 
+                android:icon="@drawable/ic_icon_apply_to_esc"
+                android:title="@string/action_esc_apply_to_esc"/>
+            <item android:id="@+id/action_esc_dump_from_esc" 
+                android:icon="@drawable/ic_icon_dump_from_esc"
+                android:title="@string/action_esc_dump_from_esc"/>
+            <item android:id="@+id/action_esc_open" 
+                android:icon="@drawable/ic_icon_sdcard"
+                android:title="@string/action_esc_open"/>
+            <item android:id="@+id/action_esc_save"
+                android:icon="@drawable/ic_icon_sdcard" 
+                android:title="@string/action_esc_save"/>
+        </menu>
+    </item>
     
     <item
         android:id="@+id/action_settings"
@@ -15,8 +38,15 @@
         android:icon="@drawable/ic_action_overflow">
         <menu>
             <item android:id="@+id/action_settings_select_device" 
+                android:icon="@drawable/ic_icon_bluetooth"
                 android:title="@string/action_settings_select_device"/>
+            <item android:id="@+id/action_settings_help" 
+                android:icon="@drawable/ic_icon_help"
+                android:title="@string/action_settings_help"/>
+            <item android:id="@+id/action_settings_about" 
+                android:title="@string/action_settings_about"/>
+			<item android:id="@+id/action_settings_language" 
+                android:title="@string/action_settings_language"/>
         </menu>
     </item>
-
 </menu>

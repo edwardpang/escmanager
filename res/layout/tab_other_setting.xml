@@ -17,7 +17,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#dcdcdc"
-            android:padding="@dimen/table_padding"
+            android:paddingBottom="@dimen/table_vertical_padding"
+            android:paddingLeft="@dimen/table_horizontal_padding"
+            android:paddingRight="@dimen/table_horizontal_padding"
+            android:paddingTop="@dimen/table_vertical_padding"
             android:textColor="#000" >
 
             <TextView
@@ -46,7 +49,10 @@
             android:id="@+id/tab_monitor_row_ambient_temp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/table_padding" >
+            android:paddingBottom="@dimen/table_vertical_padding"
+            android:paddingLeft="@dimen/table_horizontal_padding"
+            android:paddingRight="@dimen/table_horizontal_padding"
+            android:paddingTop="@dimen/table_vertical_padding" >
 			
             <TextView
                 android:id="@+id/tvTabOtherSettingRowEscFwVersion"
@@ -75,7 +81,10 @@
             android:id="@+id/tab_monitor_row_motor_speed_max"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/table_padding" >
+            android:paddingBottom="@dimen/table_vertical_padding"
+            android:paddingLeft="@dimen/table_horizontal_padding"
+            android:paddingRight="@dimen/table_horizontal_padding"
+            android:paddingTop="@dimen/table_vertical_padding" >
 			
             <TextView
                 android:id="@+id/tvTabOtherSettingRowEscName"
@@ -105,7 +114,10 @@
             android:id="@+id/tab_monitor_row_motor_speed_cur"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/table_padding" >
+            android:paddingBottom="@dimen/table_vertical_padding"
+            android:paddingLeft="@dimen/table_horizontal_padding"
+            android:paddingRight="@dimen/table_horizontal_padding"
+            android:paddingTop="@dimen/table_vertical_padding" >
 			
             <TextView
                 android:id="@+id/tvTabOtherSettingRowEscPassword"

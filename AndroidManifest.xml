@@ -45,6 +45,11 @@
             android:label="@string/title_activity_password_input_dialog"
             android:theme="@android:style/Theme.Holo.Dialog" >
         </activity>
+        <activity
+            android:name=".AboutDialogActivity"
+            android:label="@string/title_activity_about_dialog"
+            android:theme="@android:style/Theme.Holo.Dialog" >
+        </activity>
     </application>
 
 </manifest>

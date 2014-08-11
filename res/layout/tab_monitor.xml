@@ -17,7 +17,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#dcdcdc"
-            android:padding="@dimen/table_padding"
+            android:paddingBottom="@dimen/table_vertical_padding"
+            android:paddingLeft="@dimen/table_horizontal_padding"
+            android:paddingRight="@dimen/table_horizontal_padding"
+            android:paddingTop="@dimen/table_vertical_padding"
             android:textColor="#000" >
 
             <TextView
@@ -28,9 +31,18 @@
                 android:text="@string/tab_monitor_row_heading_description" />
 
 			<TextView
+                android:id="@+id/tvTabMonitorRowHeadingSub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="@string/empty" />
+			
+			<TextView
                 android:id="@+id/tvTabMonitorRowHeadingValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
                 android:text="@string/tab_monitor_row_heading_value" />
                         
@@ -38,15 +50,268 @@
                 android:id="@+id/tvTabMonitorRowHeadingUnit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
                 android:text="@string/tab_monitor_row_heading_unit" />
         </TableRow>
-        
+
+		<TableRow
+            android:id="@+id/tab_monitor_row_battery_voltage_cur"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/table_vertical_padding"
+            android:paddingLeft="@dimen/table_horizontal_padding"
+            android:paddingRight="@dimen/table_horizontal_padding"
+            android:paddingTop="@dimen/table_vertical_padding" >
+			
+            <TextView
+                android:id="@+id/tvTabMonitorRowBatteryVoltageDescriptionCur"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/tab_monitor_row_battery_voltage_description" />
+
+			<TextView
+                android:id="@+id/tvTabMonitorRowBatteryVoltageDescriptionCurSub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="@string/tab_monitor_cur" />
+                   
+			<TextView
+                android:id="@+id/tvTabMonitorRowBatteryVoltageValueCur"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="@string/not_available" />
+                        
+			<TextView
+                android:id="@+id/tvTabMonitorRowBatteryVoltageUnitCur"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="@string/tab_monitor_voltage_unit" />
+        </TableRow>
+
+		<TableRow
+            android:id="@+id/tab_monitor_row_battery_voltage_min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/table_vertical_padding"
+            android:paddingLeft="@dimen/table_horizontal_padding"
+            android:paddingRight="@dimen/table_horizontal_padding"
+            android:paddingTop="@dimen/table_vertical_padding" >
+			
+            <TextView
+                android:id="@+id/tvTabMonitorRowBatteryVoltageDescriptionMin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="2"
+                android:text="@string/empty" />
+
+			<TextView
+                android:id="@+id/tvTabMonitorRowBatteryVoltageMin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="@string/tab_monitor_min" />
+                   
+			<TextView
+                android:id="@+id/tvTabMonitorRowBatteryVoltageValueMin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="@string/not_available" />
+                        
+			<TextView
+                android:id="@+id/tvTabMonitorRowBatteryVoltageMinUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="@string/tab_monitor_voltage_unit" />
+        </TableRow>
+		
+		<TableRow
+            android:id="@+id/tab_monitor_row_esc_temp_cur"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/table_vertical_padding"
+            android:paddingLeft="@dimen/table_horizontal_padding"
+            android:paddingRight="@dimen/table_horizontal_padding"
+            android:paddingTop="@dimen/table_vertical_padding" >
+			
+            <TextView
+                android:id="@+id/tvTabMonitorRowEscTempDescriptionCur"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/tab_monitor_row_esc_temp_description" />
+
+			<TextView
+                android:id="@+id/tvTabMonitorRowEscTempCur"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="@string/tab_monitor_cur" />
+                   
+			<TextView
+                android:id="@+id/tvTabMonitorRowEscTempValueCur"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="@string/not_available" />
+                        
+			<TextView
+                android:id="@+id/tvTabMonitorRowBEscTempCurUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="@string/tab_monitor_temp_unit" />
+        </TableRow>
+
+		<TableRow
+            android:id="@+id/tab_monitor_row_esc_temp_max"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/table_vertical_padding"
+            android:paddingLeft="@dimen/table_horizontal_padding"
+            android:paddingRight="@dimen/table_horizontal_padding"
+            android:paddingTop="@dimen/table_vertical_padding" >
+			
+            <TextView
+                android:id="@+id/tvTabMonitorRowEscTempDescriptionMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/empty" />
+
+			<TextView
+                android:id="@+id/tvTabMonitorRowEscTempMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="@string/tab_monitor_max" />
+                   
+			<TextView
+                android:id="@+id/tvTabMonitorRowEscTempValueMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="@string/not_available" />
+                        
+			<TextView
+                android:id="@+id/tvTabMonitorRowEscTempMinUnit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="@string/tab_monitor_temp_unit" />
+        </TableRow>
+
+
         <TableRow
+            android:id="@+id/tab_monitor_row_motor_temp_cur"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/table_vertical_padding"
+            android:paddingLeft="@dimen/table_horizontal_padding"
+            android:paddingRight="@dimen/table_horizontal_padding"
+            android:paddingTop="@dimen/table_vertical_padding" >
+			
+            <TextView
+                android:id="@+id/tvTabMonitorRowMotorTempDescription_cur"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/tab_monitor_row_motor_temp_description" />
+
+			<TextView
+                android:id="@+id/tvTabMonitorRowMotorTempCur"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="@string/tab_monitor_cur" />
+            			
+			<TextView
+                android:id="@+id/tvTabMonitorRowMotorTempValueCur"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="@string/not_available" />
+                        
+			<TextView
+                android:id="@+id/tvTabMonitorRowMotorTempUnitCur"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="@string/tab_monitor_temp_unit" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tab_monitor_row_motor_temp_max"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/table_vertical_padding"
+            android:paddingLeft="@dimen/table_horizontal_padding"
+            android:paddingRight="@dimen/table_horizontal_padding"
+            android:paddingTop="@dimen/table_vertical_padding" >
+			
+            <TextView
+                android:id="@+id/tvTabMonitorRowMotorTempDescriptionMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/empty" />
+
+			<TextView
+                android:id="@+id/tvTabMonitorRowMotorTempMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="@string/tab_monitor_max" />
+            			
+			<TextView
+                android:id="@+id/tvTabMonitorRowMotorTempValueMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="@string/not_available" />
+                        
+			<TextView
+                android:id="@+id/tvTabMonitorRowMotorTempUnitMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="@string/tab_monitor_temp_unit" />
+        </TableRow>
+        
+        
+		<TableRow
             android:id="@+id/tab_monitor_row_ambient_temp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/table_padding" >
+            android:paddingBottom="@dimen/table_vertical_padding"
+            android:paddingLeft="@dimen/table_horizontal_padding"
+            android:paddingRight="@dimen/table_horizontal_padding"
+            android:paddingTop="@dimen/table_vertical_padding" >
 			
             <TextView
                 android:id="@+id/tvTabMonitorRowAmbientTempDescription"
@@ -56,9 +321,18 @@
                 android:text="@string/tab_monitor_row_ambient_temp_description" />
             
 			<TextView
+                android:id="@+id/tvTabMonitorRowAmbientTempSub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="@string/empty" />
+                        
+			<TextView
                 android:id="@+id/tvTabMonitorRowAmbientTempValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
                 android:text="@string/not_available" />
                         
@@ -66,64 +340,92 @@
                 android:id="@+id/tvTabMonitorRowAmbientTempUnit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
-                android:text="@string/tab_monitor_row_ambient_temp_unit" />
+                android:text="@string/tab_monitor_temp_unit" />
         </TableRow>
-
+        
         <TableRow
             android:id="@+id/tab_monitor_row_motor_speed_cur"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/table_padding" >
+            android:paddingBottom="@dimen/table_vertical_padding"
+            android:paddingLeft="@dimen/table_horizontal_padding"
+            android:paddingRight="@dimen/table_horizontal_padding"
+            android:paddingTop="@dimen/table_vertical_padding" >
 			
             <TextView
-                android:id="@+id/tvTabMonitorRowMotorSpeedCurDescription"
+                android:id="@+id/tvTabMonitorRowMotorSpeedDescriptionCur"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:text="@string/tab_monitor_row_motor_speed_cur_description" />
+                android:text="@string/tab_monitor_row_motor_speed_description" />
             
 			<TextView
-                android:id="@+id/tvTabMonitorRowMotorSpeedCurValue"
+                android:id="@+id/tvTabMonitorRowMotorSpeedCur"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="@string/tab_monitor_cur" />
+            			
+			<TextView
+                android:id="@+id/tvTabMonitorRowMotorSpeedValueCur"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
                 android:text="@string/not_available" />
                         
 			<TextView
-                android:id="@+id/tvTabMonitorRowMotorSpeedCurUnit"
+                android:id="@+id/tvTabMonitorRowMotorSpeedUnitCur"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
-                android:text="@string/tab_monitor_row_motor_speed_cur_unit" />
+                android:text="@string/tab_monitor_speed_unit" />
         </TableRow>
 
         <TableRow
             android:id="@+id/tab_monitor_row_motor_speed_max"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/table_padding" >
+            android:paddingBottom="@dimen/table_vertical_padding"
+            android:paddingLeft="@dimen/table_horizontal_padding"
+            android:paddingRight="@dimen/table_horizontal_padding"
+            android:paddingTop="@dimen/table_vertical_padding" >
 			
             <TextView
-                android:id="@+id/tvTabMonitorRowMotorSpeedMaxDescription"
+                android:id="@+id/tvTabMonitorRowMotorSpeedDescriptionMax"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:text="@string/tab_monitor_row_motor_speed_max_description" />
+                android:text="@string/empty" />
             
 			<TextView
-                android:id="@+id/tvTabMonitorRowMotorSpeedMaxValue"
+                android:id="@+id/tvTabMonitorRowMotorSpeedMax"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:text="@string/tab_monitor_max" />
+                        
+			<TextView
+                android:id="@+id/tvTabMonitorRowMotorSpeedValueMax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:layout_weight="1"
                 android:text="@string/not_available" />
                         
 			<TextView
-                android:id="@+id/tvTabMonitorRowMotorSpeedMaxUnit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/tab_monitor_row_motor_speed_max_unit" />
+			    android:id="@+id/tvTabMonitorRowMotorSpeedMaxUnit"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_gravity="center_horizontal"
+			    android:layout_weight="1"
+			    android:text="@string/tab_monitor_speed_unit" />
+
         </TableRow>
 
     </TableLayout>
