@@ -399,6 +399,16 @@ public class MainActivity extends Activity implements
         			f.setFwupState(FirmwareUpdateStateEnum.FWUP_STATE_RECV_START_ACK);
         		}
         	}
+        	else if (message.contains("OK+FWUP+BLK:")) {
+        		FirmwareUpdateFragment f = (FirmwareUpdateFragment) getFragmentManager().findFragmentByTag ("android:switcher:"+R.id.pager+":6");
+        		if(f != null) {
+        			int n = Integer.parseInt (message.split(":")[1]);
+        			f.setAckBlockNum(n);
+        			f.setFwupState(FirmwareUpdateStateEnum.FWUP_STATE_RECV_FILE_CONTENT_ACK);
+        			TextView tv = (TextView) f.getView().findViewById(R.id.tvFirmwareUpdateStatus);
+        			tv.append("BLOCK " + n + " is sent\n");
+        		}
+        	}
         	else if (message.contains(getString(R.string.at_cmd_set_response))) {
         		Log.i (TAG, "Tx: " + mLastSendMessage + " Rx: " + message);
         		if (mLastSendMessage.contains(getString(R.string.at_cmd_set_name))) {

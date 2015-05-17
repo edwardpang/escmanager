@@ -102,6 +102,8 @@
     <string name="ep_cmd_set_param">EP+SET+</string>
 
     <string name="ep_cmd_fwup_start">EP+FWUP+START</string>
+    <string name="ep_cmd_fwup_total_block_num">EP+FWUP+TBN:</string>
+    <string name="ep_cmd_fwup_block">EP+FWUP+BLK:</string>
 
     <string name="title_section_firmware_update">Firmware Update</string>
     <string name="tab_fwup_select_file">Select FW file</string>

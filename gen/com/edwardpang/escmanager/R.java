@@ -226,7 +226,9 @@ public final class R {
         public static final int dialog_text_paired_device_list=0x7f050012;
         public static final int dialog_text_unpaired_device_list=0x7f050013;
         public static final int empty=0x7f05001f;
+        public static final int ep_cmd_fwup_block=0x7f05005b;
         public static final int ep_cmd_fwup_start=0x7f050059;
+        public static final int ep_cmd_fwup_total_block_num=0x7f05005a;
         public static final int ep_cmd_get_hw_ver=0x7f050055;
         public static final int ep_cmd_get_param=0x7f050057;
         public static final int ep_cmd_get_sw_ver=0x7f050056;
@@ -237,9 +239,9 @@ public final class R {
         public static final int not_available=0x7f050018;
         public static final int not_connected=0x7f050017;
         public static final int splash_screen_app_name=0x7f050001;
-        public static final int tab_fwup_select_file=0x7f05005b;
-        public static final int tab_fwup_start=0x7f05005c;
-        public static final int tab_fwup_status=0x7f05005d;
+        public static final int tab_fwup_select_file=0x7f05005d;
+        public static final int tab_fwup_start=0x7f05005e;
+        public static final int tab_fwup_status=0x7f05005f;
         public static final int tab_monitor_cur=0x7f050031;
         public static final int tab_monitor_max=0x7f050030;
         public static final int tab_monitor_min=0x7f05002f;
@@ -267,7 +269,7 @@ public final class R {
         public static final int title_activity_password_input_dialog=0x7f050040;
         public static final int title_activity_select_bluetooth_device_dialog=0x7f050011;
         public static final int title_section_command_testing=0x7f050004;
-        public static final int title_section_firmware_update=0x7f05005a;
+        public static final int title_section_firmware_update=0x7f05005c;
         public static final int title_section_general_setting=0x7f050020;
         public static final int title_section_monitor=0x7f050026;
         public static final int title_section_motor_timing_setting=0x7f050003;
