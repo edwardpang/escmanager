@@ -1,9 +1,15 @@
 package com.edwardpang.escmanager;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,14 +20,18 @@ import android.widget.TextView;
 public class FirmwareUpdateFragment extends Fragment{
 	private static final String	TAG = "FirmwareUpdateFragment";
 	private FirmwareUpdateStateEnum fwupState;
-
+	File fwupFile;
+	long filesize;
+	FileInputStream fIn;
+	BufferedReader myReader;
+	
 	OnFirmwareUpdateFragmentListener mCallback;
 
 	public void setFwupState (FirmwareUpdateStateEnum state) {
 		Log.i (TAG, "setFwupState (" + state.toString() + ")");
 		fwupState = state;
 	}
-	
+    
     // Container Activity must implement this interface
     public interface OnFirmwareUpdateFragmentListener {
         public void onFragmentEventHandler(String str);
@@ -49,6 +59,19 @@ public class FirmwareUpdateFragment extends Fragment{
 			public void run() {
 				try {
 					Log.i (TAG, "fwupThread begin");
+					File extdir = Environment.getExternalStorageDirectory();
+					File datadir = Environment.getDataDirectory();
+					File downloaddir = Environment.getDownloadCacheDirectory();
+					Log.i (TAG, "External Storage Directory " + extdir.toString()); 		// SONY Z3 Compact returns /storage/emulated/0
+					Log.i (TAG, "Data Directory " + datadir.toString()); 					// SONY Z3 Compact returns /data
+					Log.i (TAG, "Download Cache Directory " + downloaddir.toString()); 		// SONY Z3 Compact returns /cache
+
+					fwupFile = new File ("/sdcard/esc/test.bin");
+					filesize = fwupFile.length();
+					Log.i (TAG, "Test filename " + fwupFile.getName() + " Size " + filesize);
+					fIn = new FileInputStream (fwupFile);
+					myReader = new BufferedReader(new InputStreamReader(fIn));
+					
 					setFwupState (FirmwareUpdateStateEnum.FWUP_STATE_INIT);
 					while (fwupState != FirmwareUpdateStateEnum.FWUP_STATE_COMPLETED){ 
 						switch (fwupState) {
@@ -69,10 +92,11 @@ public class FirmwareUpdateFragment extends Fragment{
 								break;
 								
 							case FWUP_STATE_STARTED:
-								setFwupState (FirmwareUpdateStateEnum.FWUP_STATE_COMPLETED_WITHOUT_ERROR);
+								setFwupState (FirmwareUpdateStateEnum.FWUP_STATE_SEND_FILE_CONTENT);
 								break;
 								
 							case FWUP_STATE_SEND_FILE_CONTENT:
+								
 								break;
 								
 							case FWUP_STATE_COMPLETED_WITH_ERROR:
