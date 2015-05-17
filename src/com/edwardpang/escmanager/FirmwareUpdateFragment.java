@@ -59,19 +59,25 @@ public class FirmwareUpdateFragment extends Fragment{
 			public void run() {
 				try {
 					Log.i (TAG, "fwupThread begin");
-					File extdir = Environment.getExternalStorageDirectory();
+					File extdir = Environment.getExternalStorageDirectory();				// extdir => Internal EMMC Storage
 					File datadir = Environment.getDataDirectory();
 					File downloaddir = Environment.getDownloadCacheDirectory();
 					Log.i (TAG, "External Storage Directory " + extdir.toString()); 		// SONY Z3 Compact returns /storage/emulated/0
 					Log.i (TAG, "Data Directory " + datadir.toString()); 					// SONY Z3 Compact returns /data
 					Log.i (TAG, "Download Cache Directory " + downloaddir.toString()); 		// SONY Z3 Compact returns /cache
 
-					fwupFile = new File ("/sdcard/esc/test.bin");
-					filesize = fwupFile.length();
-					Log.i (TAG, "Test filename " + fwupFile.getName() + " Size " + filesize);
-					fIn = new FileInputStream (fwupFile);
-					myReader = new BufferedReader(new InputStreamReader(fIn));
-					
+					fwupFile = new File (extdir, "test.bin");								
+					if (fwupFile.exists()) {
+						filesize = fwupFile.length();
+						Log.i (TAG, "Filename " + fwupFile.getName() + " Size " + filesize);
+
+						fIn = new FileInputStream (fwupFile);
+						myReader = new BufferedReader(new InputStreamReader(fIn));
+					}
+					else {
+						Log.e (TAG, "Filename " + fwupFile.getName() + " NOT FOUND!!");
+					}
+
 					setFwupState (FirmwareUpdateStateEnum.FWUP_STATE_INIT);
 					while (fwupState != FirmwareUpdateStateEnum.FWUP_STATE_COMPLETED){ 
 						switch (fwupState) {
