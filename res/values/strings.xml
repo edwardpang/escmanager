@@ -6,7 +6,6 @@
     <string name="title_activity_main">ESC Manager</string>
     <string name="title_section_motor_timing_setting">Motor Timing Setting</string>
     <string name="title_section_command_testing">Command Testing</string>
-    <string name="title_section_protocol_testing">Protocol Testing</string>
     <string name="action_connection_status">Connection Status</string>
     <string name="action_esc">ESC</string>
     <string name="action_esc_apply_to_esc">Apply to ESC</string>
@@ -34,6 +33,7 @@
     <string name="btn_modify">Modify</string>
     <string name="btn_cancel">Cancel</string>
     <string name="btn_ok">OK</string>
+    <string name="btn_send">Send</string>
     <string name="empty"></string>
     
     <string name="title_section_general_setting">General Setting</string>
@@ -68,6 +68,9 @@
     <string name="tab_other_setting_row_esc_password">ESC Password (Bluetooth)</string>
     <string name="tab_other_setting_row_bt_test">Bluetooth Test</string>
     
+    <string name="title_section_protocol_testing">Protocol Testing</string>
+    
+    
     <string name="title_activity_name_input_dialog">Modify ESC name (Bluetooth)</string>
     <string name="dialog_esc_name_message">Enter a new name\n(1&#8211;12 bytes, A&#8211;Z, a&#8211;z, 0&#8211;9)</string>
     <string name="title_activity_password_input_dialog">Modify ESC password (Bluetooth)</string>
@@ -91,5 +94,19 @@
     <string name="at_cmd_factory_default">AT+DEFAULT</string>
     <string name="at_cmd_get_sw_version">AT+VERSION?</string>
     <string name="at_cmd_get_address">AT+LADD?</string>
+    
+    <string name="ep_cmd_hello">EP+HELLO</string>
+    <string name="ep_cmd_get_hw_ver">EP+HWVER?</string>
+    <string name="ep_cmd_get_sw_ver">EP+SWVER?</string>
+    <string name="ep_cmd_get_param">EP+GET+</string>
+    <string name="ep_cmd_set_param">EP+SET+</string>
 
+    <string name="ep_cmd_fwup_start">EP+FWUP+START</string>
+
+    <string name="title_section_firmware_update">Firmware Update</string>
+    <string name="tab_fwup_select_file">Select FW file</string>
+    <string name="tab_fwup_start">Start</string>
+    <string name="tab_fwup_status">Firmware Update Status\n====================\n</string>
+    
+    
 </resources>

@@ -9,7 +9,16 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
         
-
+	    <Spinner
+	        android:id="@+id/spinnerProtocolTestingEpCmd"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" />
+	    
+	    <Button 
+	        android:id="@+id/btnProtocolTestingSend"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/btn_send" />"
     </LinearLayout>
 </ScrollView>
 

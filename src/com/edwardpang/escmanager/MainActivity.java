@@ -28,7 +28,8 @@ public class MainActivity extends Activity implements
 	MonitorFragment.OnMonitorFragmentListener,
 	OtherSettingFragment.OnOtherSettingFragmentListener,
 	CommandTestingFragment.OnCommandTestingFragmentListener,
-	ProtocolTestingFragment.OnProtocolTestingFragmentListener {
+	ProtocolTestingFragment.OnProtocolTestingFragmentListener,
+	FirmwareUpdateFragment.OnFirmwareUpdateFragmentListener{
 
 	private static final String	TAG = "MainActivity";
 	private static final boolean D = false;
@@ -95,6 +96,8 @@ public class MainActivity extends Activity implements
                 CommandTestingFragment.class, null);
         mTabsAdapter.addTab(bar.newTab().setText(R.string.title_section_protocol_testing),
                 ProtocolTestingFragment.class, null);
+        mTabsAdapter.addTab(bar.newTab().setText(R.string.title_section_firmware_update),
+        		FirmwareUpdateFragment.class, null);
 
         if (savedInstanceState != null) {
             bar.setSelectedNavigationItem(savedInstanceState.getInt("tab", 0));
@@ -387,6 +390,14 @@ public class MainActivity extends Activity implements
         	}
         	else if (message.contains("OK+PIN:")) {
         		mOldPassword = message.split(":")[1];
+        	}
+        	else if (message.contains("OK+FWUP+START")) {
+        		FirmwareUpdateFragment f = (FirmwareUpdateFragment) getFragmentManager().findFragmentByTag ("android:switcher:"+R.id.pager+":6");
+        		if(f != null) {
+        			//TextView tv = (TextView) f.getView().findViewById(R.id.tvFirmwareUpdateStatus);
+        			//tv.setText(tv.getText() + "OK\n");
+        			f.setFwupState(FirmwareUpdateStateEnum.FWUP_STATE_RECV_START_ACK);
+        		}
         	}
         	else if (message.contains(getString(R.string.at_cmd_set_response))) {
         		Log.i (TAG, "Tx: " + mLastSendMessage + " Rx: " + message);
